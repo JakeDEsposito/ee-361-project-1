@@ -51,8 +51,8 @@ from KeyWordContext import *
 '''
 
 # Main Program
-
-# Main menu loop
+################################################
+# Menu loop
 while (True):
     # Prompt for program functionality
     print("\nWhich part of the project would be executed? (input # from bellow)")
@@ -67,9 +67,9 @@ while (True):
         print("Problem One...")
     elif user_input == "2":
         #problemTwo()
-        print("Problem One...")
+        print("Problem Two...")
     elif user_input == "3":
-        problemThree()
+        runKeyWordContext()     # Execute my driver program for "Keyword in context"
     else:
         break
     input("\nPress Enter to continue...")  # Pause before looping
