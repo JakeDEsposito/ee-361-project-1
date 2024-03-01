@@ -53,11 +53,13 @@
 
 
 def file2array(fileName):
-    # while !fin
-    # fin >> str
-    # dynamArr[i] = str
+    arr = []
+    with open(fileName, 'r') as textFile:
+        for line in textFile:
+            newLine = line.split(" ")
+            arr += newLine
 
-    return
+    return arr
 
 
 #########################################
@@ -85,19 +87,37 @@ def file2array(fileName):
 
 
 def array2dict(keyWord, arr):
+    dict = {keyWord: []}
     # loop through length of array
-    # when you hit an instance of the keyword
-    # 1) capture the array elements from (inst -2, inst -1) and (inst +1,inst+2)
-    # 2) append to dict.get(k) <-- array of pairs of pairs
-    # Continue loop to next word
+    for i in range(len(arr)):
+        # when you hit an instance of the keyword
+        if arr[i] == keyWord:
+            # Get preceding words as a pair
+            if i == 0:
+                pair1 = ("", "")                        # first word
+            elif i == 1:
+                pair1 = ("", arr[i - 1])                # 2nd word
+            else:
+                pair1 = (arr[i - 2], arr[i - 1])        # any word 3rd on
 
-    return
+            # Get post-ceding words as a pair
+            if i == len(arr) - 1:
+                pair2 = ("", "")                        # last word
+            elif i == len(arr) - 2:
+                pair2 = (arr[i + 1], "")                # 2nd to last word
+            else:
+                pair2 = (arr[i + 1], arr[i + 2])        # any word 3rd to last and before
+
+            # Add words pairs to dictionary
+            dict[keyWord].append((pair1, pair2))
+
+    return dict
 
 
 #########################################
 # printDict
 '''
-    Purpose: Prints the contents of a dictionary to console
+    Purpose: Prints the contents of a key in a dictionary to console
     Magnitude : O()
 
     Pre: ...
@@ -105,14 +125,10 @@ def array2dict(keyWord, arr):
     Post: Returns...
 
 '''
-
-
-def printDict(dict):
-    # loop through length of value (of the keywords dict) (array of pairs of pairs)
-    # for each value:
-    # print pair1[1] pair1[2] key pair2[1] pair2[1] endl
-
-    return
+def printDict(dict, keyWord):
+    pairs = dict.get(keyWord)
+    for pair in pairs:
+        print(pair[0][0], pair[0][1], keyWord, pair[1][0], pair[1][1])
 
 #########################################
 
@@ -120,7 +136,7 @@ def printDict(dict):
 #########################################
 # runKeyWordContext
 '''
-    Purpose: Prints the contents of a dictionary to console
+    Purpose: 
     Magnitude : O()
 
     Pre: ...
@@ -130,39 +146,36 @@ def printDict(dict):
 '''
 def runKeyWordContext():
     # Prompt user for file name, loop test for valid file name
-        while (True):
-            # Prompt for program functionality
-            print("\nPlease enter the file name for processing: ('____.txt')")
-            print("Options:")
-            print("1. pg10.txt")
-            print("2. test1.txt")
-            print("3. test2.txt")
-            print("4. Exit")
-            fileName = input("Selection: ")
-            # Interpret user input
-            if fileName != "4":
-                try:
-                    fin = open(fileName, "r")
-                except:
-                    print("Invalid file name: ", fileName)
-                finally:
-                    input("\nPress Enter to continue...")  # Pause before looping
-                    continue
-            else:
-                input("\nPress Enter to continue...")  # Pause before looping
+    while (True):
+        # Prompt for program functionality
+        print("\nPlease enter the file name for processing: ('____.txt')")
+        print("Options:")
+        print("1. pg10.txt")
+        print("2. test1.txt")
+        print("3. test2.txt")
+        print("4. Exit")
+        fileName = input("Selection: ")
+        # Interpret user input
+        if fileName != "4":
+            try:
+                # Read file into array
+                fileArr = file2array(fileName)
+
+                # Prompt user for keyword, loop exits on 'Q'
+                while (True):
+                    # Prompt for program functionality
+                    print("\nPlease enter a keyword to get a list of its contexts from the file: (ex. 'the')")
+                    print("Note: Input 'Q' to quit the program")
+                    keyWord = input("Selection: ")
+                    # Interpret user input
+                    if keyWord != "Q":
+                        printDict(array2dict(keyWord, fileArr),keyWord)
+                        input("\nPress Enter to continue...")  # Pause before looping
+                    else:
+                        break
                 break
-
-    # Open file
-
-    # Read file into array
-
-    # Prompt user for keyWord, if Q exit,
-
-    # Make dict from keyword
-
-    # if keyword does not exist (value array is empty) print keyword not found)
-    # else print contents of dictionary
-
-
-
-
+            except:
+                print("Invalid file name: ", fileName)
+        else:
+            input("\nExiting 'Keyword in context'...\nPress Enter to continue...")  # Pause before looping
+            break
