@@ -134,17 +134,7 @@ def printDict(dict, keyWord):
 
 # Main Driver Method
 #########################################
-# runKeyWordContext
-'''
-    Purpose: 
-    Magnitude : O()
-
-    Pre: ...
-
-    Post: Returns...
-
-'''
-def runKeyWordContext():
+if __name__ == '__main__':
     # Prompt user for file name, loop test for valid file name
     while (True):
         # Prompt for program functionality
