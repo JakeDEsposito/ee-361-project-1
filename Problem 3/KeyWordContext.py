@@ -36,6 +36,7 @@
 		1) N/A
 
 '''
+import string
 # Methods:
 #########################################
 # file2array
@@ -54,13 +55,45 @@
 
 def file2array(fileName):
     arr = []
+    # Open file
     with open(fileName, 'r') as textFile:
-        for line in textFile:
-            newLine = line.split(" ")
-            arr += newLine
+        # Read in file to single string removing endline characters
+        temp = textFile.read().replace('\n','')
+
+        # Remove punctuation (not decimal points if numeric values)
+        temp = removePunct(temp)
+
+        # Convert string into an array of strings
+        arr = temp.split(" ")
 
     return arr
 
+#########################################
+# removePunct
+'''
+    Purpose: Takes a string and removes all punctuation within the string. Takes into consideration 
+        the decimal points of floating point values
+
+    Magnitude : O()
+
+    Pre: ...
+
+    Post: Returns...
+
+'''
+def removePunct(inStr):
+    outStr = ""
+    decimal = False
+
+    for char in inStr:
+        if char in string.punctuation:
+            if char == '.' and not decimal:
+                outStr += char
+                decimal = True
+        else:
+            outStr += char
+            decimal = False
+    return outStr
 
 #########################################
 # array2dict
@@ -158,7 +191,7 @@ if __name__ == '__main__':
                     print("Note: Input 'Q' to quit the program")
                     keyWord = input("Selection: ")
                     # Interpret user input
-                    if keyWord != "Q":
+                    if keyWord.upper() != "Q":
                         printDict(array2dict(keyWord, fileArr),keyWord)
                         input("\nPress Enter to continue...")  # Pause before looping
                     else:
