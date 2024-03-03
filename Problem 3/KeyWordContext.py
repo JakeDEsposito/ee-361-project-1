@@ -10,10 +10,10 @@
 	    The program will then find all instances of the keyword within the text file
 	    and print to the console the keyword with the 2 words preceding and postceding it
 
-
 	INPUT:
 		1) Name of the text file
-		2) Keyword to search for
+		2) Keyword to search for on loop
+		    2.1) Input of the letter 'Q' or 'q' will quit the program
 
 	OUTPUT:
 		1) All outputs will be a combination of the keyword surrounded by contextual words
@@ -23,13 +23,22 @@
 
 	PROCESSING:****
 		1) All contents within the text file will be read in and parsed into an array
-		2) The keyword will be queried and when found captured as a substring with the
-		    2* words preceding and post-ceding, which will be added to an array of strings
-        3) The array of strings will be print to the console
+		    1.1) Punctuation marks will be removed during the parsing process
+		2) The user-input keyword will be queried and when found will start the generation
+		    of a dictionary with the keyword as the key and the context the value
+            2.1) The context will be stored in the value portion of the keywords dictionary
+            2.2) Context will be stored as an ARRAY of PAIRS of PAIRS: [((__,__),(__,__)),...]
+                2.2.1) The pair of pairs will be formatted as: ((precon1, precon2),(postcon1,postcon2))
+                2.2.2) Some instances of context words, for the first and last two words in the array
+                        will be stored as empty strings
+        3) The context will be print to the screen after the entire array has been queried for instances of
+            the keyword
+            3.1) Output will be formatted: precon1 precon2 keyword postcon1 postcon2
 
 	ASSUMPTIONS:
 		1) The first and second word in the text file, if queried, will be missing 2 or 1 word, respectively
 		2) The second to and last word in the text file, if queried, will be missing 1 or 2 words respectively
+		3) Punctuation within the file is non-essential to context, and thus will be ignored/removed
 
 
 	Exception/Error Handling:
@@ -44,15 +53,11 @@ import string
     Purpose: Takes in the valid name of a text file and reads the contents
             into a single array of strings
 
-    Magnitude : O()
+    Pre: Passed a valid file name to instantiate the input stream variable
 
-    Pre: ...
-
-    Post: Returns...
+    Post: Returns an array of strings with all unnecessary punctuation removed
 
 '''
-
-
 def file2array(fileName):
     arr = []
     # Open file
@@ -65,7 +70,7 @@ def file2array(fileName):
 
         # Convert string into an array of strings
         arr = temp.split(" ")
-
+    # Return prepared strings for queries
     return arr
 
 #########################################
@@ -74,25 +79,26 @@ def file2array(fileName):
     Purpose: Takes a string and removes all punctuation within the string. Takes into consideration 
         the decimal points of floating point values
 
-    Magnitude : O()
+    Pre: Passed a string
 
-    Pre: ...
-
-    Post: Returns...
+    Post: Returns a string will all punctuation removed
 
 '''
 def removePunct(inStr):
     outStr = ""
     decimal = False
 
-    for char in inStr:
-        if char in string.punctuation:
-            if char == '.' and not decimal:
-                outStr += char
-                decimal = True
-        else:
-            outStr += char
+    # Increment through entire string
+    for i in range(len(inStr)):
+        if inStr[i].isnumeric() and inStr[i+1] == '.':
+            decimal = True
+
+        if inStr[i] not in string.punctuation:
+            outStr += inStr[i]
+        elif decimal == True:
+            outStr += inStr[i]
             decimal = False
+
     return outStr
 
 #########################################
@@ -110,11 +116,10 @@ def removePunct(inStr):
     Dictionary Format:
     {keyword:[(("",""),("","")),...]}
 
-    Magnitude : O()
+    Pre: Passed an array of strings and a keyword as query to find within the array
 
-    Pre: ...
-
-    Post: Returns...
+    Post: Returns a dictionary with the context words of the keyword stored in an array of pairs of pairs as the
+            value in a dictionary where the keyword is the key
 
 '''
 
@@ -151,9 +156,8 @@ def array2dict(keyWord, arr):
 # printDict
 '''
     Purpose: Prints the contents of a key in a dictionary to console
-    Magnitude : O()
-
-    Pre: ...
+    
+    Pre: Passed a dictionary as an argument // remove the keyword parameter
 
     Post: Returns...
 
