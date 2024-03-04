@@ -1,14 +1,14 @@
 '''
 	Author: Vincent Cifone
 	Date: 2/28/2024
-	Last Modified: 2/29/2024
+	Last Modified: 3/4/2024
 
 	"Keyword in Context"
 
 	Statement of Purpose:
-	    This program will take in the name of a text file and a keyword.
-	    The program will then find all instances of the keyword within the text file
-	    and print to the console the keyword with the 2 words preceding and postceding it
+	    This program will take in the name of a text file, the provided a looped prompt for a keyword.
+	    The program will find all instances of the keyword within the text file
+	    and print to the console the keyword with the 2 words preceding and postceding it (the context)
 
 	INPUT:
 		1) Name of the text file
@@ -157,9 +157,9 @@ def array2dict(keyWord, arr):
 '''
     Purpose: Prints the contents of a key in a dictionary to console
     
-    Pre: Passed a dictionary as an argument // remove the keyword parameter
+    Pre: Passed a dictionary as an argument and a keyWord for repeated queries
 
-    Post: Returns...
+    Post: Prints the context of the passed keyWord to the console
 
 '''
 def printDict(dict, keyWord):
