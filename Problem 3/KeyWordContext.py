@@ -40,9 +40,8 @@
 		2) The second to and last word in the text file, if queried, will be missing 1 or 2 words respectively
 		3) Punctuation within the file is non-essential to context, and thus will be ignored/removed
 
-
 	Exception/Error Handling:
-		1) N/A
+		1) Will produce an error message if the file fails to open due to invalid file name
 
 '''
 import string
@@ -50,13 +49,13 @@ import string
 #########################################
 # file2array
 def file2array(fileName):
+
     '''
         Purpose: Takes in the valid name of a text file and reads the contents
                 into a single array of strings
 
-        Pre: Passed a valid file name to instantiate the input stream variable
-
-        Post: Returns an array of strings with all unnecessary punctuation removed
+        :param fileName: a valid file name to instantiate an input stream variable
+        :returns: an array of strings
     '''
     arr = []
     # Open file
@@ -79,9 +78,8 @@ def removePunct(inStr):
         Purpose: Takes a string and removes all punctuation within the string. Takes into consideration
             the decimal points of floating point values
 
-        Pre: Passed a string
-
-        Post: Returns a string will all punctuation removed
+        :param inStr: a string of characters
+        :returns: a string will all punctuation removed
     '''
     outStr = ""
     decimal = False
@@ -108,16 +106,14 @@ def array2dict(keyWord, arr):
             The keyword will be the basis for a dictionary, and each *2 words preceding and
             post-ceding will be added to the keywords dictionary (pre-words and post-words)
 
-        * There is an assumption that if an instance of the keyword is not pre- or post-ceded by
+        ** There is an assumption that if an instance of the keyword is not pre- or post-ceded by
         2 words, the context can still be stored for 1 or 0 words
-
 
         Dictionary Format:
         {keyword:[(("",""),("","")),...]}
-
-        Pre: Passed an array of strings and a keyword as query to find within the array
-
-        Post: Returns a dictionary with the context words of the keyword stored in an array of pairs of pairs as the
+        :param keyWord: a keyword as search query
+        :param arr: an array of strings
+        :returns: Returns a dictionary with the context words of the keyword stored in an array of pairs of pairs as the
                 value in a dictionary where the keyword is the key
     '''
     dict = {keyWord: []}
@@ -152,10 +148,9 @@ def array2dict(keyWord, arr):
 def printDict(dict, keyWord):
     '''
         Purpose: Prints the contents of a key in a dictionary to console
-
-        Pre: Passed a dictionary as an argument and a keyWord for repeated queries
-
-        Post: Prints the context of the passed keyWord to the console
+        :param dict: a dictionary as an argument
+        :param keyWord: a keyWord for repeated queries
+        :returns: Prints the context of the passed keyWord to the console
     '''
     pairs = dict.get(keyWord)
     for pair in pairs:
@@ -164,7 +159,7 @@ def printDict(dict, keyWord):
 
 #########################################
 
-# Main Driver Method
+# Main Driver
 #########################################
 if __name__ == '__main__':
     # Prompt user for file name, loop test for valid file name
