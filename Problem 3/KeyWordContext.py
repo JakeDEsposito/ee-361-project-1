@@ -49,16 +49,15 @@ import string
 # Methods:
 #########################################
 # file2array
-'''
-    Purpose: Takes in the valid name of a text file and reads the contents
-            into a single array of strings
-
-    Pre: Passed a valid file name to instantiate the input stream variable
-
-    Post: Returns an array of strings with all unnecessary punctuation removed
-
-'''
 def file2array(fileName):
+    '''
+        Purpose: Takes in the valid name of a text file and reads the contents
+                into a single array of strings
+
+        Pre: Passed a valid file name to instantiate the input stream variable
+
+        Post: Returns an array of strings with all unnecessary punctuation removed
+    '''
     arr = []
     # Open file
     with open(fileName, 'r') as textFile:
@@ -75,16 +74,15 @@ def file2array(fileName):
 
 #########################################
 # removePunct
-'''
-    Purpose: Takes a string and removes all punctuation within the string. Takes into consideration 
-        the decimal points of floating point values
-
-    Pre: Passed a string
-
-    Post: Returns a string will all punctuation removed
-
-'''
 def removePunct(inStr):
+    '''
+        Purpose: Takes a string and removes all punctuation within the string. Takes into consideration
+            the decimal points of floating point values
+
+        Pre: Passed a string
+
+        Post: Returns a string will all punctuation removed
+    '''
     outStr = ""
     decimal = False
 
@@ -103,28 +101,25 @@ def removePunct(inStr):
 
 #########################################
 # array2dict
-'''
-    Purpose: Takes an array of strings and a keyword and find each instance of the
-        keyword within the array and its context words
-        The keyword will be the basis for a dictionary, and each *2 words preceding and 
-        post-ceding will be added to the keywords dictionary (pre-words and post-words)
-
-    * There is an assumption that if an instance of the keyword is not pre- or post-ceded by 
-    2 words, the context can still be stored for 1 or 0 words
-
-
-    Dictionary Format:
-    {keyword:[(("",""),("","")),...]}
-
-    Pre: Passed an array of strings and a keyword as query to find within the array
-
-    Post: Returns a dictionary with the context words of the keyword stored in an array of pairs of pairs as the
-            value in a dictionary where the keyword is the key
-
-'''
-
-
 def array2dict(keyWord, arr):
+    '''
+        Purpose: Takes an array of strings and a keyword and find each instance of the
+            keyword within the array and its context words
+            The keyword will be the basis for a dictionary, and each *2 words preceding and
+            post-ceding will be added to the keywords dictionary (pre-words and post-words)
+
+        * There is an assumption that if an instance of the keyword is not pre- or post-ceded by
+        2 words, the context can still be stored for 1 or 0 words
+
+
+        Dictionary Format:
+        {keyword:[(("",""),("","")),...]}
+
+        Pre: Passed an array of strings and a keyword as query to find within the array
+
+        Post: Returns a dictionary with the context words of the keyword stored in an array of pairs of pairs as the
+                value in a dictionary where the keyword is the key
+    '''
     dict = {keyWord: []}
     # loop through length of array
     for i in range(len(arr)):
@@ -154,18 +149,18 @@ def array2dict(keyWord, arr):
 
 #########################################
 # printDict
-'''
-    Purpose: Prints the contents of a key in a dictionary to console
-    
-    Pre: Passed a dictionary as an argument and a keyWord for repeated queries
-
-    Post: Prints the context of the passed keyWord to the console
-
-'''
 def printDict(dict, keyWord):
+    '''
+        Purpose: Prints the contents of a key in a dictionary to console
+
+        Pre: Passed a dictionary as an argument and a keyWord for repeated queries
+
+        Post: Prints the context of the passed keyWord to the console
+    '''
     pairs = dict.get(keyWord)
     for pair in pairs:
         print(pair[0][0], pair[0][1], keyWord, pair[1][0], pair[1][1])
+
 
 #########################################
 
