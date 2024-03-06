@@ -6,12 +6,12 @@
 	"Keyword in Context"
 
 	Statement of Purpose:
-	    This program will take in the name of a text file, the provided a looped prompt for a keyword.
+	    This program will take in the name of a text file, the provide a looped prompt for a keyword.
 	    The program will find all instances of the keyword within the text file
 	    and print to the console the keyword with the 2 words preceding and postceding it (the context)
 
 	INPUT:
-		1) Name of the text file
+		1) Name of the text file via command line argument
 		2) Keyword to search for on loop
 		    2.1) Input of the letter 'Q' or 'q' will quit the program
 
@@ -44,7 +44,10 @@
 		1) Will produce an error message if the file fails to open due to invalid file name
 
 '''
+# Libraries:
+#########################################
 import string
+import sys
 # Methods:
 #########################################
 # file2array
@@ -61,10 +64,13 @@ def file2array(fileName):
     # Open file
     with open(fileName, 'r') as textFile:
         # Read in file to single string removing endline characters
-        temp = textFile.read().replace('\n','')
+        temp = textFile.read().replace('\n',' ')
 
         # Remove punctuation (not decimal points if numeric values)
         temp = removePunct(temp)
+
+        # Replace possibilities of multiple spaces
+        temp = temp.replace('  ', ' ');
 
         # Convert string into an array of strings
         arr = temp.split(" ")
@@ -82,18 +88,18 @@ def removePunct(inStr):
         :returns: a string will all punctuation removed
     '''
     outStr = ""
-    decimal = False
+    decTim = False
 
     # Increment through entire string
     for i in range(len(inStr)):
-        if inStr[i].isnumeric() and inStr[i+1] == '.':
-            decimal = True
+        if inStr[i].isnumeric() and (inStr[i+1] == '.' or inStr[i+1] == ':'):
+            decTim = True
 
         if inStr[i] not in string.punctuation:
             outStr += inStr[i]
-        elif decimal == True:
+        elif decTim == True:
             outStr += inStr[i]
-            decimal = False
+            decTim = False
 
     return outStr
 
@@ -162,37 +168,26 @@ def printDict(dict, keyWord):
 # Main Driver
 #########################################
 if __name__ == '__main__':
-    # Prompt user for file name, loop test for valid file name
-    while (True):
-        # Prompt for program functionality
-        print("\nPlease enter the file name for processing: ('____.txt')")
-        print("Options:")
-        print("1. pg10.txt")
-        print("2. test1.txt")
-        print("3. test2.txt")
-        print("4. Exit")
-        fileName = input("Selection: ")
-        # Interpret user input
-        if fileName != "4":
-            try:
-                # Read file into array
-                fileArr = file2array(fileName)
 
-                # Prompt user for keyword, loop exits on 'Q'
-                while (True):
-                    # Prompt for program functionality
-                    print("\nPlease enter a keyword to get a list of its contexts from the file: (ex. 'the')")
-                    print("Note: Input 'Q' to quit the program")
-                    keyWord = input("Selection: ")
-                    # Interpret user input
-                    if keyWord.upper() != "Q":
-                        printDict(array2dict(keyWord, fileArr),keyWord)
-                        input("\nPress Enter to continue...")  # Pause before looping
-                    else:
-                        break
+    print('args',sys.argv)
+    fileName = sys.argv[1]
+
+    try:
+        # Read file into array
+        fileArr = file2array(fileName)
+
+        # Prompt user for keyword, loop exits on 'Q'
+        while (True):
+            # Prompt for program functionality
+            print("\nPlease enter a keyword to get a list of its contexts from the file: (ex. 'the')")
+            print("Note: Input 'Q' to quit the program")
+            keyWord = input("Selection: ")
+            # Interpret user input
+            if keyWord.upper() != "Q":
+                printDict(array2dict(keyWord, fileArr),keyWord)
+                input("\nPress Enter to continue...")  # Pause before looping
+            else:
+                input("\nExiting 'Keyword in context'...\nPress Enter to continue...")  # Pause before looping
                 break
-            except:
-                print("Invalid file name: ", fileName)
-        else:
-            input("\nExiting 'Keyword in context'...\nPress Enter to continue...")  # Pause before looping
-            break
+    except:
+        print("Invalid file name: ", fileName)
