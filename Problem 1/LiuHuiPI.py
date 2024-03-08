@@ -1,3 +1,27 @@
+'''
+	Author: Jake D'Esposito
+	Date: 2/28/2024
+	Last Modified: 3/7/2024
+
+	"Liu Hui's PI algorithm"
+
+	Statement of Purpose: The program utilizes Liu Hui's algorithm for
+	calculating an estimate of PI through the area of an N-Gon polygon
+
+	INPUT:
+		1) The accuracy of the estimate value of PI
+
+	OUTPUT:
+		1) The estimate of PI relative to the accuracy value passed
+
+	PROCESSING:
+		1) Doubles the number of sides a hypothetical N-Gon polygon until
+		    input accuracy is reached to calculate the area of the N-Gon polygon
+		    with a radius of 1
+
+	ASSUMPTIONS:
+		1) The radius of the N-Gon polygon will be 1
+'''
 from math import sqrt, pow, pi
 
 # Creates an approximation of PI using the Liu Hui approximation method.

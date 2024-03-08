@@ -1,14 +1,14 @@
 '''
 	Author: Vincent Cifone
 	Date: 2/28/2024
-	Last Modified: 3/4/2024
+	Last Modified: 3/8/2024
 
 	"Keyword in Context"
 
 	Statement of Purpose:
 	    This program will take in the name of a text file, the provide a looped prompt for a keyword.
 	    The program will find all instances of the keyword within the text file
-	    and print to the console the keyword with the 2 words preceding and postceding it (the context)
+	    and print to the console the keyword with the 2 words preceding and post-ceding it (the context)
 
 	INPUT:
 		1) Name of the text file via command line argument
@@ -21,24 +21,25 @@
 		    1.2) If the keyword is either of the first or last two words of the file it will be missing
 		            one or both preceding or post-ceding words respectively
 
-	PROCESSING:****
+	PROCESSING:
 		1) All contents within the text file will be read in and parsed into an array
 		    1.1) Punctuation marks will be removed during the parsing process
-		2) The user-input keyword will be queried and when found will start the generation
-		    of a dictionary with the keyword as the key and the context the value
-            2.1) The context will be stored in the value portion of the keywords dictionary
-            2.2) Context will be stored as an ARRAY of PAIRS of PAIRS: [((__,__),(__,__)),...]
+		2) The user-input keyword will be queried by loop and when found will start the generation
+		    of an array the contexts of the keyword
+            2.1) Context will be stored as an ARRAY of PAIRS of PAIRS: [((__,__),(__,__)),...]
                 2.2.1) The pair of pairs will be formatted as: ((precon1, precon2),(postcon1,postcon2))
                 2.2.2) Some instances of context words, for the first and last two words in the array
                         will be stored as empty strings
-        3) The context will be print to the screen after the entire array has been queried for instances of
-            the keyword
+            2.2) After the context has been parsed from the original array of strings, the context array for
+                    the keyword will be added as the value of the keyword in a dictionary
+        3) The context of the keyword will be print to the screen from the data stored within the dictionary
             3.1) Output will be formatted: precon1 precon2 keyword postcon1 postcon2
 
 	ASSUMPTIONS:
 		1) The first and second word in the text file, if queried, will be missing 2 or 1 word, respectively
 		2) The second to and last word in the text file, if queried, will be missing 1 or 2 words respectively
 		3) Punctuation within the file is non-essential to context, and thus will be ignored/removed
+		4) Case matching for keywords be strict
 
 	Exception/Error Handling:
 		1) Will produce an error message if the file fails to open due to invalid file name
