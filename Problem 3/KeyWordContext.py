@@ -93,6 +93,7 @@ def removePunct(inStr):
         if inStr[i].isnumeric() and (inStr[i+1] == '.' or inStr[i+1] == ':'):
             decTim = True
 
+        # Inspect if the current character is considered punctuation
         if inStr[i] not in string.punctuation:
             outStr += inStr[i]
         elif decTim == True:
@@ -107,19 +108,18 @@ def key2pairs(keyWord, arr):
     '''
         Purpose: Takes an array of strings and a keyword and find each instance of the
             keyword within the array and its context words
-            The keyword will be the basis for a dictionary, and each *2 words preceding and
-            post-ceding will be returned as a pair of pairs
+            Each of the keywords *2 words preceding and post-ceding context words
+            will be returned as an array of pairs of pairs
 
         ** There is an assumption that if an instance of the keyword is not pre- or post-ceded by
         2 words, the context can still be stored for 1 or 0 words
 
-        Dictionary Format:
-        {keyword:[(("",""),("","")),...]}
+        Array Format:
+        [(("",""),("","")),...]
         :param keyWord: a keyword as search query
         :param arr: an array of strings
         :returns: Returns an array of pairs of pairs representing the context words of the keyword within the array
     '''
-    # dict = {keyWord: []}
     pairArr = []
     # loop through length of array
     for i in range(len(arr)):
@@ -167,8 +167,11 @@ def printDict(dict, keyWord):
 #########################################
 if __name__ == '__main__':
 
+    # Access file name from command line arg
     print('args',sys.argv)
     fileName = sys.argv[1]
+
+    # Dictionary to hold keywords and their respective contexts
     dic = {}
 
     try:
