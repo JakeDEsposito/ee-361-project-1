@@ -69,13 +69,11 @@ def file2array(fileName):
         # Remove punctuation (not decimal points if numeric values)
         temp = removePunct(temp)
 
-        # Replace possibilities of multiple spaces
-        temp = temp.replace('  ', ' ');
+        # Remove instances of multiple spaces
+        temp = ' '.join(temp.split())
 
-        # Convert string into an array of strings
-        arr = temp.split(" ")
-    # Return prepared strings for queries
-    return arr
+    # Convert string into an array of strings and return
+    return temp.split(' ')
 
 #########################################
 # removePunct
@@ -88,7 +86,7 @@ def removePunct(inStr):
         :returns: a string will all punctuation removed
     '''
     outStr = ""
-    decTim = False
+    decTim = False      # boolean to indicate a decimal or time format of a string was discovered
 
     # Increment through entire string
     for i in range(len(inStr)):
@@ -105,12 +103,12 @@ def removePunct(inStr):
 
 #########################################
 # array2dict
-def array2dict(keyWord, arr):
+def key2pairs(keyWord, arr):
     '''
         Purpose: Takes an array of strings and a keyword and find each instance of the
             keyword within the array and its context words
             The keyword will be the basis for a dictionary, and each *2 words preceding and
-            post-ceding will be added to the keywords dictionary (pre-words and post-words)
+            post-ceding will be returned as a pair of pairs
 
         ** There is an assumption that if an instance of the keyword is not pre- or post-ceded by
         2 words, the context can still be stored for 1 or 0 words
@@ -119,10 +117,10 @@ def array2dict(keyWord, arr):
         {keyword:[(("",""),("","")),...]}
         :param keyWord: a keyword as search query
         :param arr: an array of strings
-        :returns: Returns a dictionary with the context words of the keyword stored in an array of pairs of pairs as the
-                value in a dictionary where the keyword is the key
+        :returns: Returns an array of pairs of pairs representing the context words of the keyword within the array
     '''
-    dict = {keyWord: []}
+    # dict = {keyWord: []}
+    pairArr = []
     # loop through length of array
     for i in range(len(arr)):
         # when you hit an instance of the keyword
@@ -144,9 +142,9 @@ def array2dict(keyWord, arr):
                 pair2 = (arr[i + 1], arr[i + 2])        # any word 3rd to last and before
 
             # Add words pairs to dictionary
-            dict[keyWord].append((pair1, pair2))
+            pairArr.append((pair1, pair2))
 
-    return dict
+    return pairArr
 
 
 #########################################
@@ -171,6 +169,7 @@ if __name__ == '__main__':
 
     print('args',sys.argv)
     fileName = sys.argv[1]
+    dic = {}
 
     try:
         # Read file into array
@@ -184,7 +183,13 @@ if __name__ == '__main__':
             keyWord = input("Selection: ")
             # Interpret user input
             if keyWord.upper() != "Q":
-                printDict(array2dict(keyWord, fileArr),keyWord)
+                # If not current instance of keyword in dictionary
+                if(keyWord not in dic):
+                    dic[keyWord] = key2pairs(keyWord,fileArr)
+                    printDict(dic,keyWord)
+                else:
+                    printDict(dic,keyWord)
+
                 input("\nPress Enter to continue...")  # Pause before looping
             else:
                 input("\nExiting 'Keyword in context'...\nPress Enter to continue...")  # Pause before looping
