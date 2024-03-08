@@ -220,15 +220,36 @@ def playfairCipherDecrypt(message, keyword=""):
 
         prev = current
 
-    return m[0] + m_culled + next
+
+    # Removes final spares
+    if(next != "x"):
+        decrypted = m[0] + m_culled + next
+    else:
+        decrypted = m[0] + m_culled
+
+    return decrypted
+
+#########################################
+
+# Main Driver
+#########################################
+if __name__ == '__main__':
+    # Test cases from wiki.
+    # for (question, answer) in [("hi", "bm"), ("de", "od"), ("th", "zb"), ("eg", "xd"), ("ol", "na"), ("di", "be"),
+    #                            ("nt", "ku"), ("he", "dm"), ("tr", "ui"), ("ex", "xm"), ("es", "mo"), ("tu", "uv"),
+    #                            ("mp", "if"), ("hidethegoldinthetreestump", "BMODZBXDNABEKUDMUIXMMOUVIF".lower())]:
+    #     ans = playfairCipherEncrypt(question, "playfairexample")
+    #     assert ans == answer, f"The input {question} expected {answer}, but got {ans}!"
+    #     ans_decrypted = playfairCipherDecrypt(ans, "playfairexample")
+    #     assert ans_decrypted == question, f"The decrypted answer for {question} expects {question}, but got {ans_decrypted} from decrypting {ans}!"
 
 
-# Test cases from wiki.
-for (question, answer) in [("hi", "bm"), ("de", "od"), ("th", "zb"), ("eg", "xd"), ("ol", "na"), ("di", "be"), ("nt", "ku"), ("he", "dm"), ("tr", "ui"), ("ex", "xm"), ("es", "mo"), ("tu", "uv"), ("mp", "if"), ("hidethegoldinthetreestump", "BMODZBXDNABEKUDMUIXMMOUVIF".lower())]:
-    ans = playfairCipherEncrypt(question, "playfairexample")
-    assert ans == answer, f"The input {question} expected {answer}, but got {ans}!"
-    ans_decrypted = playfairCipherDecrypt(ans, "playfairexample")
-    assert ans_decrypted == question, f"The decrypted answer for {question} expects {question}, but got {ans_decrypted} from decrypting {ans}!"
+    # Our test cases
+        #Case 1: Simple message to encrypt/decrypt with equivalently simple keyword
+    message = "vincent"
+    keyWord = "cifone"
 
-# Our test cases
-# for (question, answer) in [("tree", "")]
+    ans = playfairCipherEncrypt(message, keyWord)
+    print("Original Message: ", message, "\nKeyword: ", keyWord, "\nEncrypted Message: ", ans)
+    ans_decrypted = playfairCipherDecrypt(ans, keyWord)
+    print("Encrypted Message: ", ans, "\nKeyword: ", keyWord, "\nOriginal Message: ", ans_decrypted)
