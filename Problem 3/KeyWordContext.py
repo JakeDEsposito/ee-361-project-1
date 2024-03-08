@@ -88,13 +88,43 @@
                     1.3.4.3) The processing successfully displays the required decimal point for the keyword
 
         2) Test File #2: test2.txt
-            2.1) Keyword Query #1: _______
+            2.1) Keyword Query #1: 'Is'
+                2.1.1) Tests for keywords at the very beginning of the file.
+                    2.1.1.1) The first output should have 'Is' followed by two words.
+                2.1.2) Punctuation should be removed.
+                2.1.3) Results:
+                    "Is this the"
+                    "real life Is this just"
+                2.1.4) Discussion:
+                    2.1.4.1) The processing successfully processed input at beginning of the file.
+                    2.1.4.2) The processing successfully removes instances of punctuation.
 
+            2.2) Keyword Query #2: 'this'
+                2.2.1) Test for keywords that is near the beginning of the file.
+                    2.2.1.1) The first output should have one word before the chosen word.
+                2.2.2) Results:
+                    "Is this the real"
+                    "life Is this just fantasy"
+                    "back again this time tomorrow"
+                    "life from this monstrosity Easy"
+                    "cant do this to me"
+                2.2.3) Discussion:
+                    2.2.3.1) The processing successfully processed the input at the second position of the file.
 
-            2.2) Keyword Query #2: _______
-
-
-            2.3) Keyword Query #3: _______
+            2.3) Keyword Query #3: 'to'
+                2.3.1) Test for keywords that is near the end of the file.
+                    2.3.1.1) The last output should have one word after the chosen word.
+                2.3.2) Results:
+                    "look up to the skies"
+                    "really matter to me to"
+                    "to me to me Mama"
+                    "didnt mean to make you"
+                    "Ive got to go Gotta"
+                    "leave me to die Oh"
+                    "do this to me baby"
+                    "really matters to me"
+                2.3.3) Discussion:
+                    2.3.3.1) The processing successfully processed the input at the second to last position of the file.
 
         3) Test File #3: test3.txt
             3.1) File contains instances of punctuation to interpret
