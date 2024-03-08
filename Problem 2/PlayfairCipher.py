@@ -245,10 +245,31 @@ if __name__ == '__main__':
 
 
     # Our test cases
-        #Case 1: Simple message to encrypt/decrypt with equivalently simple keyword
-    message = "vincent"
-    keyWord = "cifone"
+    keyWord = "adifficulttocrackkeywordbyvincentwhereanxisincluded"
 
+
+        #Case 1: Simple message to encrypt/decrypt
+    message = "vc"
+
+    print("\nTest Case #1: Simple message:")
+    ans = playfairCipherEncrypt(message, keyWord)
+    print("Original Message: ", message, "\nKeyword: ", keyWord, "\nEncrypted Message: ", ans)
+    ans_decrypted = playfairCipherDecrypt(ans, keyWord)
+    print("Encrypted Message: ", ans, "\nKeyword: ", keyWord, "\nOriginal Message: ", ans_decrypted)
+
+        # Case 2: Increased complexity of message to encrypt/decrypt
+    message = "vincentc"
+
+    print("\nTest Case #2: Increased complexity of message:")
+    ans = playfairCipherEncrypt(message, keyWord)
+    print("Original Message: ", message, "\nKeyword: ", keyWord, "\nEncrypted Message: ", ans)
+    ans_decrypted = playfairCipherDecrypt(ans, keyWord)
+    print("Encrypted Message: ", ans, "\nKeyword: ", keyWord, "\nOriginal Message: ", ans_decrypted)
+
+        # Case 3: Complicated message to encrypt/decrypt
+    message = "mynameisvincentcifoneandiamstudyingatuniversity"
+
+    print("\nTest Case #3: Complicated message:")
     ans = playfairCipherEncrypt(message, keyWord)
     print("Original Message: ", message, "\nKeyword: ", keyWord, "\nEncrypted Message: ", ans)
     ans_decrypted = playfairCipherDecrypt(ans, keyWord)
