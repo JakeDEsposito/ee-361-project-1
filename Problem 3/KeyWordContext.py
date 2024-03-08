@@ -39,7 +39,7 @@
 		1) The first and second word in the text file, if queried, will be missing 2 or 1 word, respectively
 		2) The second to and last word in the text file, if queried, will be missing 1 or 2 words respectively
 		3) Punctuation within the file is non-essential to context, and thus will be ignored/removed
-		4) Case matching for keywords be strict
+		4) Keyword matching will be case sensitive
 		5) Input file will only contain ASCII characters
 
 	Exception/Error Handling:
@@ -129,11 +129,11 @@
         3) Test File #3: test3.txt
             3.1) File contains instances of punctuation to interpret
             3.2) File contains instances of multiple ambiguous punctuation between words
-            3.3) File contains multiple lines of input to proccess
+            3.3) File contains multiple lines of input to process
             3.4) File contains multiple instances of the same word
             3.5) File contains multiple instances of the same word with different cases
 
-            3.6) Keyword Query #1: two
+            3.6) Keyword Query #1: 'two'
                 3.6.1) Tests a keyword with known multiple instances within the input file
                 3.6.3) Results:
                     "were only two words now
@@ -143,7 +143,7 @@
                     3.6.4.1) The processing successfully removes instances of punctuation
                     3.6.4.2) The processing successfully displays each instance of both context words for the keyword
                     3.6.4.3) The processing successfully only captures matched cases of the keyword
-            3.7) Keyword Query #2: Two
+            3.7) Keyword Query #2: 'Two'
                 3.7.1) Tests a keyword with multiple instances within the same file, but with a different case
                 3.7.2) Results:
                     "of only Two words there"
