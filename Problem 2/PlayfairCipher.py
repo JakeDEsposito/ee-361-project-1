@@ -221,7 +221,7 @@ def playfairCipherDecrypt(message, keyword=""):
         prev = current
 
 
-    # Removes final spares
+    # Removes final spare's
     if(next != "x"):
         decrypted = m[0] + m_culled + next
     else:
