@@ -44,6 +44,29 @@
 	Exception/Error Handling:
 		1) Will produce an error message if the file fails to open due to invalid file name
 
+
+    Design Decisions:
+        1) The choice to read the file initially into a string was made to allow for the use string manipulation
+            to remove endline characters, unnecessary punctuation and duplicate spaces with ease before converting
+            the string into an array of strings for queries
+        2) The choice to have the files contents recorded as an array of strings for queries was to utilize the array
+            indexing to check for pre and post contextual words to capture when creating the array of pairs of pairs
+            to represent the keywords context
+        3) The choice to use an array of pairs of pairs to hold the contextual words for a given keyword was to allow
+            for all the contextual words of a keyword to be stored within they value of the keywords key in a dictionary
+            3.1) The choice to use a pair of pairs for each context was to allow the seperation and ease of indexing for
+                    the pre-contextual words and the post-contextual words during output
+        4) The format of the dictionary was chosen to utilize the keyword as the key with the attributed value as
+            an array of pairs (of context) to allow for indexing ease for each value (pair of pairs) for the keyword
+
+    Test Case Decisions:
+        1) Keyword Query #1: _______
+
+
+        2) Keyword Query #2: _______
+
+
+        3) Keyword Query #3: _______
 '''
 # Libraries:
 #########################################
