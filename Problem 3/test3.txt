@@ -1,0 +1,4 @@
+in the first test there were only two words, now instead of only Two words there will be significantly more.
+Also in this one is a collage of randomness,,, such as an unusual amount on punctuation, misspelled words, and
+multiples lines rather than one or two lines for which to check upon. Maybe i should also ask if two cases should be
+handled, both upper and lowers cases.

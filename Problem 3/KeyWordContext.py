@@ -40,6 +40,7 @@
 		2) The second to and last word in the text file, if queried, will be missing 1 or 2 words respectively
 		3) Punctuation within the file is non-essential to context, and thus will be ignored/removed
 		4) Case matching for keywords be strict
+		5) Input file will only contain ASCII characters
 
 	Exception/Error Handling:
 		1) Will produce an error message if the file fails to open due to invalid file name
@@ -60,13 +61,69 @@
             an array of pairs (of context) to allow for indexing ease for each value (pair of pairs) for the keyword
 
     Test Case Decisions:
-        1) Keyword Query #1: _______
+        1) Test File #1: test1.txt
+            1.1) File contains instances of punctuation to interpret
+            1.2) File contains instances of multiple spaces between words
+
+            1.3) Keyword Query #1: 'no'
+                1.3.1) Tests for keyword close to the end of the file
+                    1.3.1.1) should have an output with only ONE contextual post-word
+                1.3.2) keyword in initial file would be followed by punctuation
+                    1.3.2.1) instance of punctuation is not recorded and thus allows for proper query of word
+                1.3.3) Results:
+                    "443.289 wait no more"
+                1.3.4) Discussion:
+                    1.3.4.1) The processing successfully removes instances of punctuation
+                    1.3.4.2) The processing successfully displays only one post-context word for the keyword
+            1.4) Keyword Query #2: '443.289'
+                1.4.1) Tests for keyword where punctuation should not be removed due to formatting of element
+                    1.4.1.1) keyword is a numeric decimal and thus needs the decimal point to maintain purpose
+                1.4.2) keyword in initial file would be followed by punctuation
+                    1.4.2.1) multiple instances of punctuation involved in processing of keyword
+                1.4.3) Results:
+                    "only THREE 443.289 wait no"
+                1.4.4) Discussion:
+                    1.3.4.1) The processing successfully removes instances of punctuation
+                    1.3.4.2) The processing successfully displays both context words for the keyword
+                    1.3.4.3) The processing successfully displays the required decimal point for the keyword
+
+        2) Test File #2: test2.txt
+            2.1) Keyword Query #1: _______
 
 
-        2) Keyword Query #2: _______
+            2.2) Keyword Query #2: _______
 
 
-        3) Keyword Query #3: _______
+            2.3) Keyword Query #3: _______
+
+        3) Test File #3: test3.txt
+            3.1) File contains instances of punctuation to interpret
+            3.2) File contains instances of multiple ambiguous punctuation between words
+            3.3) File contains multiple lines of input to proccess
+            3.4) File contains multiple instances of the same word
+            3.5) File contains multiple instances of the same word with different cases
+
+            3.6) Keyword Query #1: two
+                3.6.1) Tests a keyword with known multiple instances within the input file
+                3.6.3) Results:
+                    "were only two words now
+                    one or two lines for
+                    ask if two cases should"
+                3.6.4) Discussion:
+                    3.6.4.1) The processing successfully removes instances of punctuation
+                    3.6.4.2) The processing successfully displays each instance of both context words for the keyword
+                    3.6.4.3) The processing successfully only captures matched cases of the keyword
+            3.7) Keyword Query #2: Two
+                3.7.1) Tests a keyword with multiple instances within the same file, but with a different case
+                3.7.2) Results:
+                    "of only Two words there"
+                3.7.3) Discussion:
+                    3.7.3.1) The processing successfully removes instances of punctuation
+                    3.7.3.2) The processing successfully displays each instance of both context words for the keyword
+
+
+
+
 '''
 # Libraries:
 #########################################
